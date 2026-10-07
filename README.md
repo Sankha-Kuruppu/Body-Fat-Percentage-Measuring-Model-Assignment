@@ -1,8 +1,6 @@
 # Body-Fat-Percentage-Measuring-Model-Assignment
-================================================================================
-  AuraFat.AI - BODY FAT PERCENTAGE PREDICTION SYSTEM
-  Project History, Technologies and Work Log
-================================================================================
+# AuraFat.AI - BODY FAT PERCENTAGE PREDICTION SYSTEM
+# Project History, Technologies and Work Log
 
 Author : AI GROUP 15 (SYNTHEX6)
 Project: Body Fat Percentage Measuring System (AuraFat.AI)
