@@ -1,0 +1,962 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AuraFat AI | Precision Body Composition Neural Network</title>
+  <meta name="description" content="Neural network body fat percentage estimator. Uses 8 inputs: age, sex, weight, height, waist, upper arm, calf and thigh.">
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Application Styles -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Background Decorative Ambient Glows -->
+  <div class="ambient-blur blur-1"></div>
+  <div class="ambient-blur blur-2"></div>
+  <div class="ambient-blur blur-3"></div>
+
+  <!-- Navigation Header -->
+  <header class="navbar">
+    <div class="container nav-container">
+      <a href="#" class="brand-logo">
+        <div class="logo-icon">
+          <i class="fa-solid fa-brain"></i>
+        </div>
+        <div class="logo-text">
+          <span class="brand-title">AuraFat<span class="highlight">.AI</span></span>
+          <span class="brand-subtitle">Neural Fat Analyzer</span>
+        </div>
+      </a>
+
+      <nav class="nav-links" id="navLinks">
+        <a href="#hero" class="nav-link active" onclick="closeMobileMenu()">Home</a>
+        <a href="#calculator" class="nav-link" onclick="closeMobileMenu()">NN Assessment</a>
+        <a href="#guide" class="nav-link" onclick="closeMobileMenu()">Measurement Guide</a>
+        <a href="#features" class="nav-link" onclick="closeMobileMenu()">Technology</a>
+      </nav>
+
+      <div class="nav-actions">
+        <div class="status-badge hide-mobile">
+          <span class="status-dot"></span>
+          <span>Model Ready</span>
+        </div>
+        <button id="themeToggleBtn" class="btn-icon" aria-label="Toggle Theme">
+          <i class="fa-solid fa-moon"></i>
+        </button>
+        <a href="#calculator" class="btn btn-primary nav-cta hide-mobile">Start Scan</a>
+
+        <button id="mobileMenuToggle" class="btn-icon mobile-menu-toggle" aria-label="Open Navigation Menu">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Landing Section -->
+  <section id="hero" class="hero-section">
+    <div class="container hero-container">
+      <div class="hero-content">
+        <div class="badge-pill">
+          <i class="fa-solid fa-wand-magic-sparkles"></i>
+          <span>8-Parameter Neural Network Model</span>
+        </div>
+        
+        <h1 class="hero-title">
+          Precision Body Fat Analysis Powered by <span class="text-gradient">Neural Networks</span>
+        </h1>
+        
+        <p class="hero-description">
+          Estimate your body fat percentage from 8 simple inputs&mdash;age, biological sex, weight, height, and waist, upper arm, calf and thigh circumferences. Results are an estimate, not a substitute for a medical assessment.
+        </p>
+
+        <div class="hero-cta-group">
+          <a href="#calculator" class="btn btn-primary btn-lg glow-effect">
+            <i class="fa-solid fa-calculator"></i>
+            <span>Calculate Body Fat Now</span>
+          </a>
+          <a href="#guide" class="btn btn-secondary btn-lg">
+            <i class="fa-solid fa-book-open"></i>
+            <span>View 8-Site Measurement Guide</span>
+          </a>
+        </div>
+
+        <div class="hero-stats-grid">
+          <div class="stat-card">
+            <span class="stat-number">87.7%</span>
+            <span class="stat-label">Model Accuracy</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-number">8</span>
+            <span class="stat-label">Anthropometric Inputs</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-number">Any</span>
+            <span class="stat-label">Units: cm, in, kg, lbs</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-visual">
+        <div class="hero-card-glass">
+          <div class="hero-card-header">
+            <div class="window-dots">
+              <span class="dot red"></span>
+              <span class="dot yellow"></span>
+              <span class="dot green"></span>
+            </div>
+            <span class="hero-card-title">Neural Network Diagram</span>
+          </div>
+
+          <div class="neural-network-graphic">
+            <svg viewBox="0 0 400 280" class="nn-svg">
+              <defs>
+                <linearGradient id="lineGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#00f2fe" stop-opacity="0.8"/>
+                  <stop offset="100%" stop-color="#4facfe" stop-opacity="0.2"/>
+                </linearGradient>
+                <filter id="glow">
+                  <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+                  <feMerge>
+                    <feMergeNode in="coloredBlur"/>
+                    <feMergeNode in="SourceGraphic"/>
+                  </feMerge>
+                </filter>
+              </defs>
+
+              <!-- Layer Connections -->
+              <!-- Input -> Hidden 1 -->
+              <line x1="60" y1="30" x2="160" y2="30" stroke="url(#lineGrad)" stroke-width="1.5" class="pulse-line l1"/>
+              <line x1="60" y1="62" x2="160" y2="100" stroke="url(#lineGrad)" stroke-width="1.5" class="pulse-line l2"/>
+              <line x1="60" y1="94" x2="160" y2="30" stroke="url(#lineGrad)" stroke-width="1.5" class="pulse-line l3"/>
+              <line x1="60" y1="126" x2="160" y2="170" stroke="url(#lineGrad)" stroke-width="1.5" class="pulse-line l4"/>
+              <line x1="60" y1="158" x2="160" y2="100" stroke="url(#lineGrad)" stroke-width="1.5" class="pulse-line l1"/>
+              <line x1="60" y1="190" x2="160" y2="240" stroke="url(#lineGrad)" stroke-width="1.5" class="pulse-line l2"/>
+              <line x1="60" y1="222" x2="160" y2="170" stroke="url(#lineGrad)" stroke-width="1.5" class="pulse-line l3"/>
+              <line x1="60" y1="254" x2="160" y2="240" stroke="url(#lineGrad)" stroke-width="1.5" class="pulse-line l4"/>
+
+              <!-- Hidden 1 -> Hidden 2 -->
+              <line x1="160" y1="30" x2="260" y2="60" stroke="url(#lineGrad)" stroke-width="1.5" class="pulse-line l3"/>
+              <line x1="160" y1="100" x2="260" y2="140" stroke="url(#lineGrad)" stroke-width="1.5" class="pulse-line l4"/>
+              <line x1="160" y1="170" x2="260" y2="140" stroke="url(#lineGrad)" stroke-width="1.5" class="pulse-line l1"/>
+              <line x1="160" y1="240" x2="260" y2="220" stroke="url(#lineGrad)" stroke-width="1.5" class="pulse-line l2"/>
+
+              <!-- Hidden 2 -> Output -->
+              <line x1="260" y1="60" x2="340" y2="140" stroke="url(#lineGrad)" stroke-width="2" class="pulse-line l3"/>
+              <line x1="260" y1="140" x2="340" y2="140" stroke="url(#lineGrad)" stroke-width="2" class="pulse-line l4"/>
+              <line x1="260" y1="220" x2="340" y2="140" stroke="url(#lineGrad)" stroke-width="2" class="pulse-line l1"/>
+
+              <!-- Input Nodes (8 Parameters) -->
+              <circle cx="60" cy="30" r="7" class="nn-node input-node" filter="url(#glow)"/>
+              <circle cx="60" cy="62" r="7" class="nn-node input-node" filter="url(#glow)"/>
+              <circle cx="60" cy="94" r="7" class="nn-node input-node" filter="url(#glow)"/>
+              <circle cx="60" cy="126" r="7" class="nn-node input-node" filter="url(#glow)"/>
+              <circle cx="60" cy="158" r="7" class="nn-node input-node" filter="url(#glow)"/>
+              <circle cx="60" cy="190" r="7" class="nn-node input-node" filter="url(#glow)"/>
+              <circle cx="60" cy="222" r="7" class="nn-node input-node" filter="url(#glow)"/>
+              <circle cx="60" cy="254" r="7" class="nn-node input-node" filter="url(#glow)"/>
+
+              <!-- Hidden Layer Nodes -->
+              <circle cx="160" cy="30" r="9" class="nn-node hidden-node"/>
+              <circle cx="160" cy="100" r="9" class="nn-node hidden-node"/>
+              <circle cx="160" cy="170" r="9" class="nn-node hidden-node"/>
+              <circle cx="160" cy="240" r="9" class="nn-node hidden-node"/>
+
+              <circle cx="260" cy="60" r="10" class="nn-node hidden-node-2"/>
+              <circle cx="260" cy="140" r="10" class="nn-node hidden-node-2"/>
+              <circle cx="260" cy="220" r="10" class="nn-node hidden-node-2"/>
+
+              <!-- Output Node (Body Fat %) -->
+              <circle cx="340" cy="140" r="14" class="nn-node output-node" filter="url(#glow)"/>
+              <text x="340" y="144" text-anchor="middle" fill="#fff" font-size="10" font-weight="bold">%</text>
+            </svg>
+
+            <div class="nn-card-caption">
+              <span>Your 8 Inputs</span>
+              <i class="fa-solid fa-arrow-right"></i>
+              <span>Neural Network</span>
+              <i class="fa-solid fa-arrow-right"></i>
+              <span class="highlight-text">Body Fat Output</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section Divider -->
+  <div class="section-divider"></div>
+
+  <!-- Neural Network Calculator & Meter Section -->
+  <section id="calculator" class="calculator-section">
+    <div class="container">
+      <div class="section-header text-center">
+        <div class="badge-pill">
+          <i class="fa-solid fa-sliders"></i>
+          <span>8-Parameter Input Matrix</span>
+        </div>
+        <h2>Neural Network Body Composition Assessment</h2>
+        <p class="section-subtitle">
+          Please enter your exact 8 anthropometric measurements below. For precise results, click the guide button on each parameter card.
+        </p>
+      </div>
+
+      <!-- Unit System & Quick Settings Selector Bar -->
+      <div class="controls-bar glass-card">
+        <div class="control-group">
+          <label class="control-label"><i class="fa-solid fa-venus-mars"></i> Biological Sex</label>
+          <div class="toggle-switch-group">
+            <button type="button" class="btn-toggle active" data-gender="male" id="genderMaleBtn">
+              <i class="fa-solid fa-mars"></i> Male
+            </button>
+            <button type="button" class="btn-toggle" data-gender="female" id="genderFemaleBtn">
+              <i class="fa-solid fa-venus"></i> Female
+            </button>
+          </div>
+        </div>
+
+        <div class="control-group">
+          <label class="control-label"><i class="fa-solid fa-ruler-combined"></i> Unit System</label>
+          <div class="toggle-switch-group">
+            <button type="button" class="btn-toggle active" data-unit="metric" id="unitMetricBtn">
+              Metric (cm / kg)
+            </button>
+            <button type="button" class="btn-toggle" data-unit="imperial" id="unitImperialBtn">
+              Imperial (in / lbs)
+            </button>
+          </div>
+        </div>
+
+        <div class="control-group">
+          <button type="button" class="btn btn-outline" id="presetSampleBtn">
+            <i class="fa-solid fa-wand-magic"></i> Load Sample Data
+          </button>
+        </div>
+      </div>
+
+      <!-- Main Grid: 8 Parameter Input Cards + Results Gauge Meter -->
+      <div class="calculator-grid">
+        
+        <!-- Left Side: 8 Separated Parameter Cards -->
+        <div class="inputs-container">
+          <div class="container-title">
+            <h3><i class="fa-solid fa-list-check"></i> Anthropometric Parameters (8 Inputs)</h3>
+            <span class="parameter-count-badge">8 Inputs Required</span>
+          </div>
+
+          <form id="bodyFatForm" onsubmit="return false;">
+            
+            <!-- PARAMETER 1: AGE -->
+            <div class="param-card glass-card" id="param-card-age">
+              <div class="param-card-header">
+                <div class="param-title-wrap">
+                  <div class="param-num">1</div>
+                  <div class="param-meta">
+                    <h4>Age</h4>
+                    <span class="param-subtitle">Age in completed years</span>
+                  </div>
+                </div>
+                <button type="button" class="btn-guide-trigger" onclick="toggleGuideModal('age')">
+                  <i class="fa-solid fa-circle-info"></i> Guide & Info
+                </button>
+              </div>
+
+              <div class="param-input-row">
+                <div class="input-wrapper">
+                  <input type="number" id="inputAge" name="age" min="10" max="100" value="28" required placeholder="28">
+                  <span class="unit-badge">yrs</span>
+                </div>
+                <div class="param-quick-desc">
+                  <i class="fa-solid fa-calendar-days"></i> Whole completed years - do not round up.
+                </div>
+              </div>
+            </div>
+
+            <!-- PARAMETER 2: BIOLOGICAL SEX -->
+            <div class="param-card glass-card" id="param-card-sex">
+              <div class="param-card-header">
+                <div class="param-title-wrap">
+                  <div class="param-num">2</div>
+                  <div class="param-meta">
+                    <h4>Biological Sex</h4>
+                    <span class="param-subtitle">Hormonal & tissue distribution profile</span>
+                  </div>
+                </div>
+                <button type="button" class="btn-guide-trigger" onclick="toggleGuideModal('sex')">
+                  <i class="fa-solid fa-circle-info"></i> Guide & Info
+                </button>
+              </div>
+
+              <div class="param-input-row wide-input">
+                <div class="toggle-switch-group full-width-toggle">
+                  <button type="button" class="btn-toggle active" id="sexCardMaleBtn" onclick="setGender('male')">
+                    <i class="fa-solid fa-mars"></i> Male
+                  </button>
+                  <button type="button" class="btn-toggle" id="sexCardFemaleBtn" onclick="setGender('female')">
+                    <i class="fa-solid fa-venus"></i> Female
+                  </button>
+                </div>
+                <div class="param-quick-desc">
+                  <i class="fa-solid fa-venus-mars"></i> Select your biological sex.
+                </div>
+              </div>
+            </div>
+
+            <!-- PARAMETER 3: WEIGHT -->
+            <div class="param-card glass-card" id="param-card-weight">
+              <div class="param-card-header">
+                <div class="param-title-wrap">
+                  <div class="param-num">3</div>
+                  <div class="param-meta">
+                    <h4>Body Weight</h4>
+                    <span class="param-subtitle">Total body mass</span>
+                  </div>
+                </div>
+                <button type="button" class="btn-guide-trigger" onclick="toggleGuideModal('weight')">
+                  <i class="fa-solid fa-circle-info"></i> Guide & Info
+                </button>
+              </div>
+
+              <div class="param-input-row">
+                <div class="input-wrapper">
+                  <input type="number" id="inputWeight" name="weight" step="0.1" min="30" max="300" value="75.0" required placeholder="75.0">
+                  <span class="unit-badge unit-weight">kg</span>
+                </div>
+                <div class="param-quick-desc">
+                  <i class="fa-solid fa-weight-scale"></i> No shoes, light clothing only, on a hard flat floor.
+                </div>
+              </div>
+            </div>
+
+            <!-- PARAMETER 4: HEIGHT -->
+            <div class="param-card glass-card" id="param-card-height">
+              <div class="param-card-header">
+                <div class="param-title-wrap">
+                  <div class="param-num">4</div>
+                  <div class="param-meta">
+                    <h4>Standing Height</h4>
+                    <span class="param-subtitle">Barefoot vertical height</span>
+                  </div>
+                </div>
+                <button type="button" class="btn-guide-trigger" onclick="toggleGuideModal('height')">
+                  <i class="fa-solid fa-circle-info"></i> Guide & Info
+                </button>
+              </div>
+
+              <div class="param-input-row">
+                <!-- Metric: single cm box. Imperial: feet + inches boxes (toggled by updateFormUnitsUI) -->
+                <div class="input-wrapper" id="heightMetricWrap">
+                  <input type="number" id="inputHeight" name="height" step="0.5" min="100" max="250" value="178.0" required placeholder="178.0">
+                  <span class="unit-badge">cm</span>
+                </div>
+                <div class="height-imperial-row hidden" id="heightImperialWrap">
+                  <div class="input-wrapper">
+                    <input type="number" id="inputHeightFt" name="height_ft" step="1" min="3" max="8" placeholder="5">
+                    <span class="unit-badge">ft</span>
+                  </div>
+                  <div class="input-wrapper">
+                    <input type="number" id="inputHeightIn" name="height_in" step="0.5" min="0" max="11.9" placeholder="10">
+                    <span class="unit-badge">in</span>
+                  </div>
+                </div>
+                <div class="param-quick-desc">
+                  <i class="fa-solid fa-arrows-up-down"></i> Barefoot, heels together, back of head against the wall, deep breath in.
+                </div>
+              </div>
+            </div>
+
+            <!-- PARAMETER 5: WAIST CIRCUMFERENCE -->
+            <div class="param-card glass-card" id="param-card-waist">
+              <div class="param-card-header">
+                <div class="param-title-wrap">
+                  <div class="param-num">5</div>
+                  <div class="param-meta">
+                    <h4>Waist Circumference</h4>
+                    <span class="param-subtitle">Horizontal measure around navel</span>
+                  </div>
+                </div>
+                <button type="button" class="btn-guide-trigger" onclick="toggleGuideModal('waist')">
+                  <i class="fa-solid fa-circle-info"></i> Guide & Info
+                </button>
+              </div>
+
+              <div class="param-input-row">
+                <div class="input-wrapper">
+                  <input type="number" id="inputWaist" name="waist" step="0.1" min="40" max="200" value="84.0" required placeholder="84.0">
+                  <span class="unit-badge unit-length">cm</span>
+                </div>
+                <div class="param-quick-desc">
+                  <i class="fa-solid fa-tape"></i> Just above the top of the right hip bone - not at the navel - after a normal breath out.
+                </div>
+              </div>
+            </div>
+
+            <!-- PARAMETER 6: UPPER ARM CIRCUMFERENCE -->
+            <div class="param-card glass-card" id="param-card-arm">
+              <div class="param-card-header">
+                <div class="param-title-wrap">
+                  <div class="param-num">6</div>
+                  <div class="param-meta">
+                    <h4>Upper Arm Circumference</h4>
+                    <span class="param-subtitle">Bicep midpoint circumference</span>
+                  </div>
+                </div>
+                <button type="button" class="btn-guide-trigger" onclick="toggleGuideModal('arm')">
+                  <i class="fa-solid fa-circle-info"></i> Guide & Info
+                </button>
+              </div>
+
+              <div class="param-input-row">
+                <div class="input-wrapper">
+                  <input type="number" id="inputArm" name="upper_arm" step="0.1" min="15" max="80" value="33.0" required placeholder="33.0">
+                  <span class="unit-badge unit-length">cm</span>
+                </div>
+                <div class="param-quick-desc">
+                  <i class="fa-solid fa-tape"></i> Right arm hanging relaxed, halfway between shoulder tip and elbow tip.
+                </div>
+              </div>
+            </div>
+
+            <!-- PARAMETER 7: CALF CIRCUMFERENCE -->
+            <div class="param-card glass-card" id="param-card-calf">
+              <div class="param-card-header">
+                <div class="param-title-wrap">
+                  <div class="param-num">7</div>
+                  <div class="param-meta">
+                    <h4>Calf Circumference</h4>
+                    <span class="param-subtitle">Maximal lower leg girth</span>
+                  </div>
+                </div>
+                <button type="button" class="btn-guide-trigger" onclick="toggleGuideModal('calf')">
+                  <i class="fa-solid fa-circle-info"></i> Guide & Info
+                </button>
+              </div>
+
+              <div class="param-input-row">
+                <div class="input-wrapper">
+                  <input type="number" id="inputCalf" name="calf" step="0.1" min="15" max="80" value="37.0" required placeholder="37.0">
+                  <span class="unit-badge unit-length">cm</span>
+                </div>
+                <div class="param-quick-desc">
+                  <i class="fa-solid fa-tape"></i> Seated with knee at 90&deg;, at the widest part of the right calf.
+                </div>
+              </div>
+            </div>
+
+            <!-- PARAMETER 8: THIGH CIRCUMFERENCE -->
+            <div class="param-card glass-card" id="param-card-thigh">
+              <div class="param-card-header">
+                <div class="param-title-wrap">
+                  <div class="param-num">8</div>
+                  <div class="param-meta">
+                    <h4>Thigh Circumference</h4>
+                    <span class="param-subtitle">Mid-thigh segment girth</span>
+                  </div>
+                </div>
+                <button type="button" class="btn-guide-trigger" onclick="toggleGuideModal('thigh')">
+                  <i class="fa-solid fa-circle-info"></i> Guide & Info
+                </button>
+              </div>
+
+              <div class="param-input-row">
+                <div class="input-wrapper">
+                  <input type="number" id="inputThigh" name="thigh" step="0.1" min="20" max="120" value="56.0" required placeholder="56.0">
+                  <span class="unit-badge unit-length">cm</span>
+                </div>
+                <div class="param-quick-desc">
+                  <i class="fa-solid fa-tape"></i> Halfway between the hip crease and top of the kneecap, standing.
+                </div>
+              </div>
+            </div>
+
+            <!-- Process & Run Neural Network Button -->
+            <div class="form-action-wrap">
+              <button type="button" id="processNNBtn" class="btn btn-primary btn-block btn-lg glow-effect">
+                <i class="fa-solid fa-microchip"></i>
+                <span>Process Neural Network Model</span>
+              </button>
+            </div>
+
+          </form>
+        </div>
+
+        <!-- Right Side: Interactive Gauge Meter & Results Display Panel -->
+        <div class="results-container">
+          
+          <!-- State 1: Initial Prompt Card before processing -->
+          <div class="meter-card glass-card" id="meterInitialState">
+            <div class="placeholder-content">
+              <div class="ai-pulse-ring">
+                <i class="fa-solid fa-brain"></i>
+              </div>
+              <h3>Ready for NN Analysis</h3>
+              <p>Enter your 8 parameter values on the left and press <strong>"Process Neural Network Model"</strong> to launch the AI inference sequence.</p>
+              
+              <div class="feature-bullets">
+                <div class="f-item"><i class="fa-solid fa-check"></i> Metric or imperial units</div>
+                <div class="f-item"><i class="fa-solid fa-check"></i> Healthy range for your sex</div>
+                <div class="f-item"><i class="fa-solid fa-check"></i> Instant Composition Breakdown</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- State 2: Processing Animation Overlay -->
+          <div class="meter-card glass-card hidden" id="meterProcessingState">
+            <div class="processing-wrapper">
+              <div class="nn-loader-ring">
+                <div class="ring-core"></div>
+                <div class="ring-spinner"></div>
+                <div class="tensor-percentage" id="loaderPercentage">0%</div>
+              </div>
+
+              <div class="processing-details">
+                <h4 class="processing-title">Neural Net Processing...</h4>
+                <p class="processing-status-text" id="processingStatusText">Preparing inputs...</p>
+                
+                <!-- Terminal Step Progress Bar -->
+                <div class="progress-bar-container">
+                  <div class="progress-bar-fill" id="progressBarFill"></div>
+                </div>
+
+                <div class="nn-steps-log">
+                  <div class="log-line active" id="logStep1"><i class="fa-solid fa-angle-right"></i> Checking your measurements</div>
+                  <div class="log-line" id="logStep2"><i class="fa-solid fa-angle-right"></i> Converting units</div>
+                  <div class="log-line" id="logStep3"><i class="fa-solid fa-angle-right"></i> Running the neural network</div>
+                  <div class="log-line" id="logStep4"><i class="fa-solid fa-angle-right"></i> Calculating body fat %</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- State 3: Active Results Gauge Meter & Detailed Report -->
+          <div class="meter-card glass-card hidden" id="meterResultsState">
+            <div class="meter-header">
+              <div class="meter-title">
+                <i class="fa-solid fa-gauge-high"></i> Body Fat Gauge Output
+              </div>
+              <span class="time-stamp" id="resultTimestamp">Just now</span>
+            </div>
+
+            <!-- SVG speedometer gauge meter -->
+            <div class="gauge-display-wrapper">
+              <div class="gauge-svg-container">
+                <svg viewBox="0 0 300 180" class="gauge-svg">
+                  <!-- Gradient Arc Track Background -->
+                  <path d="M 30 150 A 120 120 0 0 1 270 150" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="22" stroke-linecap="round"/>
+                  
+                  <!-- Color Segments: Essential (Blue), Athlete (Teal), Fitness (Green), Acceptable (Yellow), Obese (Orange/Red) -->
+                  <!-- Color segments (Essential, Athletic, Fitness, Average, Overfat) are drawn
+                       by drawGaugeSegments() in app.js using the sex-specific category thresholds -->
+                  <g id="gaugeSegments"></g>
+
+                  <!-- Gauge Dynamic Needle Line -->
+                  <g id="gaugeNeedleGroup" style="transform-origin: 150px 150px; transform: rotate(-90deg); transition: transform 1.5s cubic-bezier(0.34, 1.56, 0.64, 1);">
+                    <line x1="150" y1="150" x2="150" y2="45" stroke="#ffffff" stroke-width="4" stroke-linecap="round" filter="drop-shadow(0 0 6px rgba(0,242,254,0.8))"/>
+                    <circle cx="150" cy="150" r="10" fill="#0f172a" stroke="#00f2fe" stroke-width="4"/>
+                  </g>
+
+                  <!-- Ticks / Scale Labels -->
+                  <!-- Scale labels at the category boundaries, drawn by drawGaugeSegments() -->
+                  <g id="gaugeLabels"></g>
+                </svg>
+              </div>
+
+              <!-- Main Result Digital Readout -->
+              <div class="result-readout-box">
+                <div class="fat-value-wrap">
+                  <span class="fat-percentage-val" id="resultFatPercent">18.4</span>
+                  <span class="fat-unit">%</span>
+                </div>
+                <div class="fat-category-badge category-fit" id="resultCategoryBadge">
+                  <i class="fa-solid fa-heart-pulse"></i>
+                  <span id="resultCategoryText">Fitness Category</span>
+                </div>
+                <p class="model-accuracy-note">Model accuracy: 87.7%</p>
+              </div>
+            </div>
+
+            <!-- Detailed Mass & Composition Metrics breakdown -->
+            <div class="composition-breakdown-grid">
+              <div class="comp-box">
+                <div class="comp-icon fat-icon"><i class="fa-solid fa-droplet"></i></div>
+                <div class="comp-info">
+                  <span class="comp-label">Fat Mass</span>
+                  <span class="comp-val" id="resultFatMass">13.8 kg</span>
+                </div>
+              </div>
+
+              <div class="comp-box">
+                <div class="comp-icon lean-icon"><i class="fa-solid fa-dumbbell"></i></div>
+                <div class="comp-info">
+                  <span class="comp-label">Lean Body Mass</span>
+                  <span class="comp-val" id="resultLeanMass">61.2 kg</span>
+                </div>
+              </div>
+
+              <div class="comp-box">
+                <div class="comp-icon bmi-icon"><i class="fa-solid fa-child"></i></div>
+                <div class="comp-info">
+                  <span class="comp-label">Calculated BMI</span>
+                  <span class="comp-val" id="resultBMI">23.7 kg/m²</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Target / Healthy Range Indicator -->
+            <div class="ideal-range-card">
+              <div class="ideal-header">
+                <span>Recommended Healthy Range</span>
+                <strong id="resultHealthyRange">12% - 20%</strong>
+              </div>
+              <p class="ideal-desc" id="resultInsightDesc">
+                Your body composition falls into the optimal fitness category. Maintaining your current lean mass ratio supports cardiovascular resilience and metabolic health.
+              </p>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="meter-actions">
+              <button type="button" class="btn btn-outline btn-sm" onclick="window.print()">
+                <i class="fa-solid fa-print"></i> Print Report
+              </button>
+              <button type="button" class="btn btn-secondary btn-sm" id="recalculateBtn">
+                <i class="fa-solid fa-rotate-left"></i> Recalculate
+              </button>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Section Divider -->
+  <div class="section-divider"></div>
+
+  <!-- Detailed 8-Parameter Visual Guide Section (Separated Cards) -->
+  <section id="guide" class="guide-section">
+    <div class="container">
+      <div class="section-header text-center">
+        <div class="badge-pill">
+          <i class="fa-solid fa-images"></i>
+          <span>Separated Measurement Guides</span>
+        </div>
+        <h2>8 Parameter Measuring Protocols & Instructions</h2>
+        <p class="section-subtitle">
+          Follow each step exactly &mdash; the model expects measurements taken this way. Measure on the right side of your body with a non-stretch tape, to the nearest 0.1&nbsp;cm (or 1/8&nbsp;in). A helper makes every tape measurement more accurate.
+        </p>
+      </div>
+
+      <div class="guides-grid">
+        
+        <!-- SECTION 1: AGE GUIDE CARD -->
+        <article class="guide-card glass-card" id="guide-sec-age">
+          <div class="guide-card-image">
+            <span class="guide-number-tag">01</span>
+            <img class="img-diagram" src="assets/images/guide-age.png" alt="Age in completed years" loading="lazy">
+          </div>
+          <div class="guide-card-content">
+            <div class="guide-badge"><i class="fa-solid fa-user"></i> Parameter 1</div>
+            <h3>Age (Years)</h3>
+            <p class="guide-desc">
+              Your age in completed years. At the same body size, body fat tends to change with age, so the model uses age alongside your measurements.
+            </p>
+            <div class="guide-steps">
+              <div class="step-item">
+                <i class="fa-solid fa-check-circle"></i>
+                <span>Enter your age in whole completed years - do not round up.</span>
+              </div>
+              <div class="step-item">
+                <i class="fa-solid fa-check-circle"></i>
+                <span>Use your age on the day you take the measurements.</span>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- SECTION 2: BIOLOGICAL SEX GUIDE CARD -->
+        <article class="guide-card glass-card" id="guide-sec-sex">
+          <div class="guide-card-image">
+            <span class="guide-number-tag">02</span>
+            <img class="img-diagram" src="assets/images/guide-sex.png" alt="Male and female symbols" loading="lazy">
+          </div>
+          <div class="guide-card-content">
+            <div class="guide-badge"><i class="fa-solid fa-venus-mars"></i> Parameter 2</div>
+            <h3>Biological Sex</h3>
+            <p class="guide-desc">
+              At the same measurements, women on average carry more body fat than men, so the model needs to know.
+            </p>
+            <div class="guide-steps">
+              <div class="step-item">
+                <i class="fa-solid fa-check-circle"></i>
+                <span>Select the option that matches your biological sex.</span>
+              </div>
+
+            </div>
+          </div>
+        </article>
+
+        <!-- SECTION 3: WEIGHT GUIDE CARD -->
+        <article class="guide-card glass-card" id="guide-sec-weight">
+          <div class="guide-card-image">
+            <span class="guide-number-tag">03</span>
+            <img src="assets/images/weight.jpg" alt="Person standing on a digital floor scale" loading="lazy">
+          </div>
+          <div class="guide-card-content">
+            <div class="guide-badge"><i class="fa-solid fa-weight-scale"></i> Parameter 3</div>
+            <h3>Body Weight (Mass)</h3>
+            <p class="guide-desc">
+              Body weight on a digital floor scale, without shoes, wearing only light clothing.
+            </p>
+            <div class="guide-steps">
+              <div class="step-item">
+                <i class="fa-solid fa-check-circle"></i>
+                <span>Remove shoes and heavy clothing; use a hard, flat floor.</span>
+              </div>
+              <div class="step-item">
+                <i class="fa-solid fa-check-circle"></i>
+                <span>Stand still in the centre, hands at sides, and read once the display is stable.</span>
+              </div>
+              <div class="step-item">
+                <i class="fa-solid fa-check-circle"></i>
+                <span>For repeat checks, weigh at the same time of day.</span>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- SECTION 4: HEIGHT GUIDE CARD -->
+        <article class="guide-card glass-card" id="guide-sec-height">
+          <div class="guide-card-image">
+            <span class="guide-number-tag">04</span>
+            <img class="img-diagram" src="assets/images/guide-height.png" alt="Standing height position, front and side view" loading="lazy">
+          </div>
+          <div class="guide-card-content">
+            <div class="guide-badge"><i class="fa-solid fa-ruler-vertical"></i> Parameter 4</div>
+            <h3>Standing Height</h3>
+            <p class="guide-desc">
+              Maximum standing height, barefoot, against a wall or stadiometer.
+            </p>
+            <div class="guide-steps">
+              <div class="step-item">
+                <i class="fa-solid fa-check-circle"></i>
+                <span>Heels together, toes slightly out; heels, buttocks, shoulder blades and back of head touch the wall.</span>
+              </div>
+              <div class="step-item">
+                <i class="fa-solid fa-check-circle"></i>
+                <span>Look straight ahead with your head level, not tilted up or down.</span>
+              </div>
+              <div class="step-item">
+                <i class="fa-solid fa-check-circle"></i>
+                <span>Deep breath, stand tall; a helper presses a flat object onto the head and reads to 0.1 cm.</span>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- SECTION 5: WAIST GUIDE CARD -->
+        <article class="guide-card glass-card" id="guide-sec-waist">
+          <div class="guide-card-image">
+            <span class="guide-number-tag">05</span>
+            <img class="img-diagram" src="assets/images/guide-waist.png" alt="Waist tape position just above the top of the hip bone" loading="lazy">
+          </div>
+          <div class="guide-card-content">
+            <div class="guide-badge"><i class="fa-solid fa-tape"></i> Parameter 5</div>
+            <h3>Waist Circumference</h3>
+            <p class="guide-desc">
+              Measured just above the top of the right hip bone - not at the belly button, which gives a different number.
+            </p>
+            <div class="guide-steps">
+              <div class="step-item">
+                <i class="fa-solid fa-check-circle"></i>
+                <span>Find the top of the right hip bone at the side of the body; the tape goes just above it.</span>
+              </div>
+              <div class="step-item">
+                <i class="fa-solid fa-check-circle"></i>
+                <span>Tape horizontal all the way round, snug but not pressing into the skin.</span>
+              </div>
+              <div class="step-item">
+                <i class="fa-solid fa-check-circle"></i>
+                <span>Read at the end of a normal breath out, without pulling the stomach in.</span>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- SECTION 6: UPPER ARM GUIDE CARD -->
+        <article class="guide-card glass-card" id="guide-sec-arm">
+          <div class="guide-card-image">
+            <span class="guide-number-tag">06</span>
+            <img class="img-diagram" src="assets/images/guide-arm.png" alt="Upper arm midpoint between shoulder tip and elbow tip" loading="lazy">
+          </div>
+          <div class="guide-card-content">
+            <div class="guide-badge"><i class="fa-solid fa-tape"></i> Parameter 6</div>
+            <h3>Upper Arm Circumference</h3>
+            <p class="guide-desc">
+              Right arm, halfway between the bony tip of the shoulder and the tip of the elbow - not the biggest part of the biceps.
+            </p>
+            <div class="guide-steps">
+              <div class="step-item">
+                <i class="fa-solid fa-check-circle"></i>
+                <span>Elbow bent 90&deg;, palm up: measure shoulder tip to elbow tip down the back of the arm and mark halfway.</span>
+              </div>
+              <div class="step-item">
+                <i class="fa-solid fa-check-circle"></i>
+                <span>Let the arm hang loosely, muscles relaxed, and wrap the tape around the mark.</span>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- SECTION 7: CALF GUIDE CARD -->
+        <article class="guide-card glass-card" id="guide-sec-calf">
+          <div class="guide-card-image">
+            <span class="guide-number-tag">07</span>
+            <img class="img-diagram" src="assets/images/guide-calf.png" alt="Tape position at the widest part of the calf" loading="lazy">
+          </div>
+          <div class="guide-card-content">
+            <div class="guide-badge"><i class="fa-solid fa-tape"></i> Parameter 7</div>
+            <h3>Calf Circumference</h3>
+            <p class="guide-desc">
+              The largest circumference of the right calf, measured sitting with the knee bent at 90&deg;.
+            </p>
+            <div class="guide-steps">
+              <div class="step-item">
+                <i class="fa-solid fa-check-circle"></i>
+                <span>Sit with the right knee at a right angle and the leg relaxed.</span>
+              </div>
+              <div class="step-item">
+                <i class="fa-solid fa-check-circle"></i>
+                <span>Slide the tape up and down to find the widest point; keep it perpendicular to the lower leg.</span>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- SECTION 8: THIGH GUIDE CARD -->
+        <article class="guide-card glass-card" id="guide-sec-thigh">
+          <div class="guide-card-image">
+            <span class="guide-number-tag">08</span>
+            <img class="img-diagram" src="assets/images/guide-thigh.png" alt="Mid-thigh: marking the midpoint seated, measuring standing" loading="lazy">
+          </div>
+          <div class="guide-card-content">
+            <div class="guide-badge"><i class="fa-solid fa-tape"></i> Parameter 8</div>
+            <h3>Thigh Circumference</h3>
+            <p class="guide-desc">
+              Right thigh, halfway between the crease where the thigh meets the hip and the top edge of the kneecap.
+            </p>
+            <div class="guide-steps">
+              <div class="step-item">
+                <i class="fa-solid fa-check-circle"></i>
+                <span>Seated, knee 90&deg;: measure crease to top of kneecap along the front of the thigh and mark halfway.</span>
+              </div>
+              <div class="step-item">
+                <i class="fa-solid fa-check-circle"></i>
+                <span>Stand with weight on the left leg, right knee slightly bent, and wrap the tape around the mark.</span>
+              </div>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Section Divider -->
+  <div class="section-divider"></div>
+
+  <!-- Tech Specs / NN Model Architecture Features -->
+  <section id="features" class="tech-section">
+    <div class="container">
+      <div class="section-header text-center">
+        <div class="badge-pill">
+          <i class="fa-solid fa-microchip"></i>
+          <span>Technology</span>
+        </div>
+        <h2>How It Works</h2>
+        <p class="section-subtitle">
+          A neural network trained on real body measurements and lab-measured body fat turns your 8 inputs into a body fat estimate.
+        </p>
+      </div>
+
+      <div class="tech-grid">
+        <div class="tech-card glass-card">
+          <div class="tech-icon"><i class="fa-solid fa-layer-group"></i></div>
+          <h4>Neural Network</h4>
+          <p>The model learned how body measurements relate to body fat from people whose body fat was measured in a lab.</p>
+        </div>
+
+        <div class="tech-card glass-card">
+          <div class="tech-icon"><i class="fa-solid fa-sliders"></i></div>
+          <h4>8 Simple Inputs</h4>
+          <p>Age, sex, weight, height, and four tape measurements. BMI is calculated for you from your weight and height.</p>
+        </div>
+
+        <div class="tech-card glass-card">
+          <div class="tech-icon"><i class="fa-solid fa-ruler-combined"></i></div>
+          <h4>Any Units</h4>
+          <p>Enter each measurement in cm or inches, kg or lbs. Everything is converted automatically before the estimate is made.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Modal Dialog for Parameter Instructions & Image Preview -->
+  <div class="modal-backdrop" id="guideModalBackdrop" onclick="closeGuideModal(event)">
+    <div class="modal-dialog glass-card">
+      <button type="button" class="modal-close-btn" onclick="closeGuideModalForce()">&times;</button>
+      
+      <div class="modal-body">
+        <div class="modal-image-col">
+          <img id="modalImg" src="" alt="Parameter Measurement Illustration">
+        </div>
+        <div class="modal-info-col">
+          <span class="badge-pill" id="modalBadge">Parameter Guide</span>
+          <h3 id="modalTitle">Parameter Instructions</h3>
+          <p id="modalDesc" class="modal-desc">Detailed step-by-step guide for taking this measurement.</p>
+          
+          <div class="modal-tips-list">
+            <h4><i class="fa-solid fa-lightbulb"></i> Measurement Best Practices</h4>
+            <ul id="modalTipsList">
+              <li>Keep measuring tape taut but avoid pinching the skin.</li>
+              <li>Take 3 consecutive measurements and use the average.</li>
+            </ul>
+          </div>
+
+          <div class="modal-actions">
+            <button type="button" class="btn btn-primary" onclick="closeGuideModalForce()">Got It!</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container footer-container">
+      <div class="footer-brand">
+        <div class="brand-logo">
+          <div class="logo-icon"><i class="fa-solid fa-brain"></i></div>
+          <span class="brand-title">AuraFat<span class="highlight">.AI</span></span>
+        </div>
+        <p>Neural Network Body Composition Platform.</p>
+      </div>
+
+      <div class="footer-links">
+        <span>© 2026 AuraFat.AI. Estimates only &mdash; not medical advice.</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Application Logic JavaScript -->
+  <script src="app.js"></script>
+</body>
+</html>
